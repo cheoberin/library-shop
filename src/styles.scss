@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+@import "primeicons/primeicons.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+p-toolbar div.tail-override{
+  @apply  mx-auto;
+  @apply justify-between ;
+  @apply sticky ;
+  @apply top-0 ;
+  @apply z-10 ;
+  @apply backdrop-filter ;
+  @apply backdrop-blur-lg  ;
+  @apply font-sans;
+  @apply bg-white bg-opacity-60 border border-gray-200 bg-clip-padding;
+
+
+}
+div label.checkbox-label-override{
+  @apply ml-3 text-sm text-gray-600;
+}
+p-checkbox div.checkbox-item-override{
+  @apply rounded border-gray-300 text-indigo-600 focus:ring-indigo-500;
+}
