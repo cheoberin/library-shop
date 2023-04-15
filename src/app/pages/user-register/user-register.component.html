@@ -1,0 +1,82 @@
+<div class="container" class="bg-white py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+
+    <div class="mb-10 md:mb-16">
+      <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Register</h2>
+
+      <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">Create a customer account and buy with us.
+      </p>
+    </div>
+
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mx-auto grid max-w-screen-md gap-4 sm:grid-cols-2">
+
+      <div class="sm:col-span-2">
+        <label for="name" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Full name*</label>
+        <input type="text" name="name" id="name" formControlName="name"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+        <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="alert alert-danger">
+          <div *ngIf="form.get('name')?.errors?.['required']">Name is required.</div>
+        </div>
+      </div>
+
+      <div>
+        <label for="birthDate" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Birth Date*</label>
+        <input name="birthDate" id="birthDate" type="date" formControlName="birthDate"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+        <div *ngIf="form.get('birthDate')?.invalid && form.get('birthDate')?.touched" class="alert alert-danger">
+          <div *ngIf="form.get('birthDate')?.errors?.['required']">Birth date is required.</div>
+        </div>
+      </div>
+
+
+      <div>
+        <label for="cpf" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">CPF*</label>
+        <input name="cpf" type="text" id="cpf" formControlName="cpf"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring">
+        <div *ngIf="form.get('cpf')?.invalid && form.get('cpf')?.touched" class="alert alert-danger">
+          <div *ngIf="form.get('cpf')?.errors?.['required']">CPF is required.</div>
+          <div *ngIf="form.get('cpf')?.errors?.['pattern']">CPF formart is not valid.</div>
+          <div *ngIf="form.get('cpf')?.errors?.['cpf']">CPF is not valid.</div>
+        </div>
+      </div>
+
+      <div>
+        <label for="phone" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Phone*</label>
+        <input name="phone" type="text" id="phone" formControlName="phone"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring">
+        <div *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched" class="alert alert-danger">
+          <div *ngIf="form.get('phone')?.errors?.['required']">Phone is mandatory.</div>
+        </div>
+      </div>
+
+      <div class="sm:col-span-2">
+        <label for="email" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">E-mail*</label>
+        <input name="email" type="email" id="email" formControlName="email"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring">
+        <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="alert alert-danger">
+          <div *ngIf="form.get('email')?.errors?.['required']">E-mail is mandatory.</div>
+          <div *ngIf="form.get('email')?.errors?.['email']">E-mail is not valid.</div>
+        </div>
+      </div>
+
+      <div class="sm:col-span-2">
+        <label for="password" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Password*</label>
+        <input name="password" type="password" id="password" formControlName="password"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring">
+        <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="alert alert-danger">
+          <div *ngIf="form.get('password')?.errors?.['required']">Please set up a password.</div>
+          <div *ngIf="form.get('password')?.errors?.['minlength']">Password should be bigger than 8 characteres.</div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between sm:col-span-2">
+        <button
+          class="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">Register</button>
+        <span class="text-sm text-gray-500">*By clicking on Register you agree to our Privacy Policy</span>
+      </div>
+
+    </form>
+
+  </div>
+</div>

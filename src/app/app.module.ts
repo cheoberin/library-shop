@@ -1,31 +1,35 @@
-import { NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import localePt from '@angular/common/locales/pt';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
+import { MenuModule } from 'primeng/menu';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SidebarModule } from 'primeng/sidebar';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HeaderComponent} from "./components/header/header.component";
-import {ToolbarModule} from "primeng/toolbar";
-import {BadgeModule} from "primeng/badge";
-import {ButtonModule} from "primeng/button";
-import {SidebarModule} from "primeng/sidebar";
-import {MenuModule} from "primeng/menu";
-import {OverlayPanelModule} from "primeng/overlaypanel";
-import { HomeComponent } from './pages/home/home.component';
-import { ProductsHeaderComponent } from './pages/home/components/products-header/products-header.component';
-import { FiltersComponent } from './pages/home/components/filters/filters.component';
-import {CheckboxModule} from "primeng/checkbox";
-import {FormsModule} from "@angular/forms";
-import { ProductBoxComponent } from './pages/home/components/prodcut-box/product-box.component';
-import { LOCALE_ID } from '@angular/core';
-import localePt from '@angular/common/locales/pt';
-import {registerLocaleData} from '@angular/common';
-import { CartComponent } from './pages/cart/cart.component';
-import {CartItemComponent} from "./pages/cart/cart-item/cart-item.component";
-import {CartService} from "./services/cart.service";
-import {MessageService} from "primeng/api";
-import { ToastModule } from 'primeng/toast';
 import { FooterComponent } from './components/footer/footer.component';
-registerLocaleData(localePt)
+import { HeaderComponent } from './components/header/header.component';
+import { CartItemComponent } from './pages/cart/cart-item/cart-item.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { FiltersComponent } from './pages/home/components/filters/filters.component';
+import { ProductBoxComponent } from './pages/home/components/prodcut-box/product-box.component';
+import { ProductsHeaderComponent } from './pages/home/components/products-header/products-header.component';
+import { HomeComponent } from './pages/home/home.component';
+import { UserRegisterComponent } from './pages/user-register/user-register.component';
+import { CartService } from './services/cart.service';
+import { UserService } from './services/user.service';
+
+registerLocaleData(localePt);
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,25 +40,32 @@ registerLocaleData(localePt)
     ProductBoxComponent,
     CartComponent,
     CartItemComponent,
-    FooterComponent
+    FooterComponent,
+    UserRegisterComponent,
 
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        ToolbarModule,
-        BadgeModule,
-        ButtonModule,
-        SidebarModule,
-        MenuModule,
-        OverlayPanelModule,
-        CheckboxModule,
-        FormsModule,
-        ToastModule
-
-    ],
-  providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}, CartService, MessageService],
-  bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ToolbarModule,
+    BadgeModule,
+    ButtonModule,
+    SidebarModule,
+    MenuModule,
+    OverlayPanelModule,
+    CheckboxModule,
+    FormsModule,
+    ToastModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    CartService,
+    MessageService,
+    UserService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
