@@ -1,23 +1,37 @@
 <form class="block">
     <div class="border-b border-gray-200 py-6">
         <h3 class="-my-3 flow-root">
-            <button type="button" (click)="toggleSection()" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-1" aria-expanded="false">
+            <button type="button" (click)="toggleGenreSection()" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-1" aria-expanded="false">
                 <span class="font-medium text-gray-900">Genres</span>
                 <span class="ml-6 flex items-center">
-                                        <svg *ngIf='!isSectionOpen' class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <svg *ngIf='!sections.isGenreSectionOpen' class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                                         </svg>
-                                        <svg *ngIf='isSectionOpen'  class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <svg *ngIf='sections.isGenreSectionOpen'  class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
                                         </svg>
                 </span>
             </button>
         </h3>
-        <div *ngIf='isSection' class="pt-6" id="filter-section-1">
-            <div class="space-y-4">
-                <div *ngFor="let genre of genres" class="field-checkbox">
-                    <p-checkbox  styleClass="checkbox-item-override" name="group" [value]="genre" [(ngModel)]="selectedGenres" [inputId]="genre.key"></p-checkbox>
-                    <label class="checkbox-label-override" [for]="genre.key">{{ genre.name }}</label>
+        <div *ngIf='sections.isGenreSection' class="pt-6" id="filter-section-1">
+            <div class="relative mb-3" data-te-input-wrapper-init>
+                <input type="text"
+                       class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.33rem] text-xs leading-[1.5] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                       id="genre-filter"
+                       (input)="onGenreFilterInput($event)"
+                       placeholder="Search genres"
+
+                >
+                <label for="genre-filter" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] text-xs leading-[1.5] text-neutral-500 bg-white transition-all duration-200 ease-out peer-focus:-translate-y-[0.75rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.75rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                >Search genres
+                </label>
+            </div>
+            <div class="space-y-4 max-h-40 overflow-auto">
+                <div *ngFor="let genre of filteredGenres" class="field-checkbox">
+                    <p-checkbox styleClass="checkbox-item-override" name="group" (onChange)="updateBooks()" [value]="genre._id" [(ngModel)]="selectedGenres"
+                                [inputId]="genre._id" >
+                    </p-checkbox>
+                    <label class="checkbox-label-override" [for]="genre._id">{{ genre.name }}</label>
                 </div>
             </div>
         </div>
@@ -26,23 +40,73 @@
 <form class="block">
     <div class="border-b border-gray-200 py-6">
         <h3 class="-my-3 flow-root">
-            <button type="button" (click)="toggleSection()" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-1" aria-expanded="false">
+            <button type="button" (click)="toggleAuthorSection()" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-2" aria-expanded="false">
                 <span class="font-medium text-gray-900">Author</span>
                 <span class="ml-6 flex items-center">
-                                        <svg *ngIf='!isSectionOpen' class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <svg *ngIf='!sections.isAuthorSectionOpen' class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                                         </svg>
-                                        <svg *ngIf='isSectionOpen'  class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <svg *ngIf='sections.isAuthorSectionOpen'  class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
                                         </svg>
                 </span>
             </button>
         </h3>
-        <div *ngIf='isSection' class="pt-6" id="filter-section-2">
+        <div *ngIf='sections.isAuthorSection' class="pt-6" id="filter-section-2">
+            <div class="relative mb-3" data-te-input-wrapper-init>
+                <input type="text"
+                       class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.33rem] text-xs leading-[1.5] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                       id="author-filter"
+                       (input)="onAuthorFilterInput($event)"
+                       placeholder="Search Author"
+                >
+                <label for="author-filter" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] text-xs leading-[1.5] text-neutral-500 bg-white transition-all duration-200 ease-out peer-focus:-translate-y-[0.75rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.75rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                >Search Author
+                </label>
+            </div>
+            <div class="space-y-4 max-h-40 overflow-auto">
+                <div *ngFor="let author of filteredAuthors" class="field-checkbox">
+                    <p-checkbox  styleClass="checkbox-item-override" name="group" [value]="author._id" (onChange)="updateBooks()" [(ngModel)]="selectedAuthors" [inputId]="author._id"
+
+                    ></p-checkbox>
+                    <label class="checkbox-label-override" [for]="author._id">{{ author.name }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<form class="block">
+    <div class="border-b border-gray-200 py-6">
+        <h3 class="-my-3 flow-root">
+            <button type="button" (click)="togglePublisherSection()" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-3" aria-expanded="false">
+                <span class="font-medium text-gray-900">Publisher</span>
+                <span class="ml-6 flex items-center">
+                                        <svg *ngIf='!sections.isPublisherSectionOpen' class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                        </svg>
+                                        <svg *ngIf='sections.isPublisherSectionOpen'  class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                                        </svg>
+                </span>
+            </button>
+        </h3>
+        <div *ngIf='sections.isPublisherSection' class="pt-6" id="filter-section-3">
+            <div class="relative mb-3" data-te-input-wrapper-init>
+                <input type="text"
+                       class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.33rem] text-xs leading-[1.5] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                       id="publisher-filter"
+                       (input)="onPublisherFilterInput($event)"
+                       placeholder="Search Publisher"
+                >
+                <label for="publisher-filter" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] text-xs leading-[1.5] text-neutral-500 bg-white transition-all duration-200 ease-out peer-focus:-translate-y-[0.75rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.75rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                >Search Publisher
+                </label>
+            </div>
             <div class="space-y-4">
-                <div *ngFor="let author of authors" class="field-checkbox">
-                    <p-checkbox  styleClass="checkbox-item-override" name="group" [value]="author" [(ngModel)]="selectedAuthors" [inputId]="author.key"></p-checkbox>
-                    <label class="checkbox-label-override" [for]="author.key">{{ author.name }}</label>
+                <div *ngFor="let publisher of filteredPublisher" class="field-checkbox">
+                    <p-checkbox  styleClass="checkbox-item-override" name="group" [value]="publisher._id" (onChange)="updateBooks()" [(ngModel)]="selectedPublishers" [inputId]="publisher._id"
+                    ></p-checkbox>
+                    <label class="checkbox-label-override" [for]="publisher._id">{{ publisher.name }}</label>
                 </div>
             </div>
         </div>

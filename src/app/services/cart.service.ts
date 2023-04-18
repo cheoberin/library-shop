@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {Cart, CartItem} from "app/models/cart.model"
 import {MessageService} from "primeng/api";
- @Injectable({
+
+@Injectable({
   providedIn: 'root'
 })
 export class CartService {

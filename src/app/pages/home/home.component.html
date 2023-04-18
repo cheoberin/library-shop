@@ -3,9 +3,13 @@
         <main class="mx-auto px-4 sm:px-6 lg:px-8">
             <section aria-labelledby="products-heading" class="pb-24 pt-6">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                    <app-filters></app-filters>
+                    <app-filters
+                    (paramsChange)="onParamsChange($event)"
+                    ></app-filters>
                     <div class="col-span-3">
-                        <app-products-header></app-products-header>
+                        <app-products-header
+                         (paramsChange)="onParamsChange($event)"
+                        ></app-products-header>
                         <p-toast></p-toast>
                         <div class="grid gap-x-4 gap-y-8 sm:grid-cols-2 md:gap-x-6 lg:grid-cols-3 mt-2 xl:grid-cols-4 ">
                           <div *ngFor="let product of products">
@@ -14,6 +18,9 @@
                               (addToCart)="onAddToCart($event)"
                             ></app-product-box>
                           </div>
+                        </div>
+                        <div class="card py-2.5 flex justify-content-center">
+                            <p-paginator (onPageChange)="onPageChange($event)"  [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[1,2,3,4,5,10, 20, 30]"></p-paginator>
                         </div>
                     </div>
                 </div>

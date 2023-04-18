@@ -28,3 +28,21 @@ div label.checkbox-label-override{
 p-checkbox div.checkbox-item-override{
   @apply rounded border-gray-300 text-indigo-600 focus:ring-indigo-500;
 }
+
+
+::-webkit-scrollbar {
+  @apply w-2.5;
+}
+
+::-webkit-scrollbar-track {
+ @apply bg-white;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-indigo-400 rounded-xl;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-indigo-200 ;
+}
+

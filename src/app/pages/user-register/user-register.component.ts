@@ -1,16 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  NonNullableFormBuilder,
-  Validators,
-} from '@angular/forms';
-import { UserService } from 'app/services/user.service';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import validator, { cpf } from 'cpf-cnpj-validator';
-import { User } from 'app/models/user.model';
-import { DatePipe } from '@angular/common';
-import { AbstractControl } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, NonNullableFormBuilder, Validators,} from '@angular/forms';
+import {UserService} from 'app/services/user.service';
+import {DatePipe, Location} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
+import {cpf} from 'cpf-cnpj-validator';
+import {User} from 'app/models/user.model';
 
 @Component({
   selector: 'app-user-register',
