@@ -6,7 +6,7 @@ import {
 } from '@angular/forms';
 import { UserService } from 'app/services/user.service';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import validator, { cpf } from 'cpf-cnpj-validator';
 import { User } from 'app/models/user.model';
 import { DatePipe } from '@angular/common';
@@ -43,11 +43,12 @@ export class UserRegisterComponent implements OnInit {
     private formBuilder: NonNullableFormBuilder,
     private service: UserService,
     private location: Location,
-    private route: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const user: User | null = this.route.snapshot?.data?.['user'] ?? null;
+    const user: User | null = this.activeRoute.snapshot?.data?.['user'] ?? null;
 
     if (user) {
       this.form.setValue({
@@ -66,17 +67,17 @@ export class UserRegisterComponent implements OnInit {
 
   onSubmit() {
     this.service.save(this.form.value).subscribe(
-      (result) => this.onSuccess(),
-      (error) => this.onError()
+      (result) => this.onSuccess(result),
+      (error) => this.onError(error)
     );
   }
 
-  private onSuccess() {
-    console.log('cadastrado');
+  private onSuccess(result: any) {
+    this.router.navigate(['cart']);
   }
 
-  private onError() {
-    console.log('erro!');
+  private onError(error: any) {
+    console.log(error);
   }
 
   onCancel() {

@@ -8,7 +8,7 @@ import { environment } from 'enviroment/enviroment';
 })
 export class UserService {
 
-  private readonly API = environment.baseUrl + 'api/user';
+  private readonly API = environment.baseUrl + 'api/auth/register';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -20,6 +20,7 @@ export class UserService {
   }
 
   private create(record: Partial<User>) {
+    console.log(this.API + " " + record);
     return this.httpClient.post<User>(this.API, record).pipe(first());
   }
 
