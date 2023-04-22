@@ -73,7 +73,7 @@ export class UserRegisterComponent implements OnInit {
   }
 
   private onSuccess(result: any) {
-    this.router.navigate(['cart']);
+    this.router.navigate(['address-register']);
   }
 
   private onError(error: any) {

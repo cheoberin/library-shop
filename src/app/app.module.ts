@@ -28,6 +28,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { UserRegisterComponent } from './pages/user-register/user-register.component';
 import { CartService } from './services/cart.service';
 import { UserService } from './services/user.service';
+import { AddressRegisterComponent } from './pages/address-register/address-register.component';
+import { AddressService } from './services/address.service';
 
 registerLocaleData(localePt);
 @NgModule({
@@ -42,6 +44,7 @@ registerLocaleData(localePt);
     CartItemComponent,
     FooterComponent,
     UserRegisterComponent,
+    AddressRegisterComponent,
 
   ],
   imports: [
@@ -65,6 +68,7 @@ registerLocaleData(localePt);
     CartService,
     MessageService,
     UserService,
+    AddressService
   ],
   bootstrap: [AppComponent],
 })
