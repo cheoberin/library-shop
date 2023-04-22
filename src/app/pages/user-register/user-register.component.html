@@ -1,4 +1,4 @@
-<div class="container bg-white py-6 sm:py-8 lg:py-12">
+<div class="container" class="bg-white py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
 
     <div class="mb-10 md:mb-16">
@@ -9,7 +9,7 @@
     </div>
 
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mx-auto grid max-w-screen-md gap-4 sm:grid-cols-2">
+    <form [formGroup]="form" method="post" (ngSubmit)="onSubmit()" class="mx-auto grid max-w-screen-md gap-4 sm:grid-cols-2">
 
       <div class="sm:col-span-2">
         <label for="name" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Full name*</label>
@@ -72,7 +72,8 @@
 
       <div class="flex items-center justify-between sm:col-span-2">
         <button
-                [disabled]="form.invalid"
+          type="submit"
+          [disabled]="form.invalid"
           class="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">Register</button>
         <span class="text-sm text-gray-500">*By clicking on Register you agree to our Privacy Policy</span>
       </div>
