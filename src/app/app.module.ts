@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +30,13 @@ import { CartService } from './services/cart.service';
 import { UserService } from './services/user.service';
 import { AddressRegisterComponent } from './pages/address-register/address-register.component';
 import { AddressService } from './services/address.service';
+import { AuthInterceptor } from './services/auth-inteceptor.service';
+import {JwtService} from "./services/jwt.service";
+import {LoginComponent} from "./pages/login/login.component";
+import {PaginatorModule} from "primeng/paginator";
+import {InputTextModule} from "primeng/inputtext";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {RippleModule} from "primeng/ripple";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -45,6 +52,7 @@ registerLocaleData(localePt);
     FooterComponent,
     UserRegisterComponent,
     AddressRegisterComponent,
+    LoginComponent
 
   ],
   imports: [
@@ -62,13 +70,19 @@ registerLocaleData(localePt);
     ToastModule,
     HttpClientModule,
     ReactiveFormsModule,
+    PaginatorModule,
+    ProgressSpinnerModule,
+    InputTextModule,
+    RippleModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
+    {provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true},
     CartService,
     MessageService,
     UserService,
-    AddressService
+    AddressService,
+    JwtService
   ],
   bootstrap: [AppComponent],
 })
