@@ -26,7 +26,7 @@ export class UserService {
   }
 
   private create(record: Partial<IUser>) {
-    return this.httpClient.post<any>(this.API + "auth/register", record).pipe(first());
+    return this.httpClient.post<any>(this.API + "api/auth/register", record).pipe(first());
   }
 
   private update(record: Partial<IUser>) {
@@ -36,11 +36,11 @@ export class UserService {
   }
 
   signIn(singInRequest : ISingInRequest){
-    return this.httpClient.post<any>(`${this.API}auth/login`, singInRequest)
+    return this.httpClient.post<any>(this.API + `api/auth/login`, singInRequest)
         .pipe(
             switchMap((loginRes) => {
               localStorage.setItem('access_token', loginRes.token); // Salva o token no localStorage
-              return this.httpClient.get(`${this.API}user/getUser/${singInRequest.email}`);
+              return this.httpClient.get(this.API + `api/user/getUser/${singInRequest.email}`);
             })
         )
         .subscribe((userRes) => {

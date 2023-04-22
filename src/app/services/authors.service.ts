@@ -13,11 +13,11 @@ export class AuthorsService {
   constructor(private http: HttpClient ) { }
 
   findById(id:string):Observable<any>{
-    const url = this.API + `author/${id}` ;
+    const url = this.API + `api/author/${id}` ;
     return this.http.get(url);
   }
   findAll(): Observable<any>{
-    const url = this.API + "author";
+    const url = this.API + "api/author";
     return this.http.get(url);
   }
 

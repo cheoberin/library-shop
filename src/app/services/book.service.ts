@@ -21,7 +21,7 @@ export class BookService {
 
 
   findAll(params: Record<string, string>): void {
-    this.http.get<any>(this.API + "book", { params }).subscribe(
+    this.http.get<any>(this.API + "api/book", { params }).subscribe(
         books => {
             this.booksSubject.next(books.content)
             this.pagesSubject.next(books);

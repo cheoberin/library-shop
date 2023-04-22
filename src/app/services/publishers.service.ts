@@ -11,11 +11,11 @@ export class PublishersService {
   constructor(private http: HttpClient ) { }
 
   findById(id:string):Observable<any>{
-    const url = this.API + `publisher/${id}` ;
+    const url = this.API + `api/publisher/${id}` ;
     return this.http.get(url);
   }
   findAll(): Observable<any>{
-    const url = this.API + "publisher";
+    const url = this.API + "api/publisher";
     return this.http.get(url);
   }
 }

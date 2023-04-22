@@ -6,6 +6,8 @@ import { Address } from 'app/models/address.model';
 import { AddressService } from 'app/services/address.service';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from 'app/services/user.service';
+import localePt from '@angular/common/locales/pt';
 
 @Component({
   selector: 'app-address-register',
@@ -19,6 +21,7 @@ export class AddressRegisterComponent implements OnInit {
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private service: AddressService,
+    private userService: UserService,
     private location: Location,
     private activeRoute: ActivatedRoute,
     private router: Router,
@@ -26,7 +29,7 @@ export class AddressRegisterComponent implements OnInit {
   ) {}
 
   form = this.formBuilder.group({
-    _id: [''],
+    _id: [this.userService.getCurrentUser],
     addressName: ['', [Validators.required]],
     cep: ['', [Validators.required]],
     street: ['', [Validators.required]],
@@ -63,7 +66,24 @@ export class AddressRegisterComponent implements OnInit {
     }
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.service.save(this.form.value).subscribe(
+      (result) => this.onSucess(result),
+      (error) => this.onError(error)
+    );
+  }
+
+  private onSucess(result : any){
+    this.router.navigate(['cart']);
+  }
+
+  private onError(error : any){
+    console.log(error);
+  }
+
+  onCancel(){
+    this.location.back();
+  }
 
   public lookAddress() {
 

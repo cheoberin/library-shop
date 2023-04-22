@@ -8,9 +8,10 @@ import { UserService } from 'app/services/user.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import validator, { cpf } from 'cpf-cnpj-validator';
-import { User } from 'app/models/user.model';
+import { IUser } from 'app/models/user.model';
 import { DatePipe } from '@angular/common';
 import { AbstractControl } from '@angular/forms';
+import { ISingInRequest } from '../../models/user.model';
 
 @Component({
   selector: 'app-user-register',
@@ -48,7 +49,8 @@ export class UserRegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const user: User | null = this.activeRoute.snapshot?.data?.['user'] ?? null;
+    const user: IUser | null =
+      this.activeRoute.snapshot?.data?.['user'] ?? null;
 
     if (user) {
       this.form.setValue({
@@ -73,6 +75,7 @@ export class UserRegisterComponent implements OnInit {
   }
 
   private onSuccess(result: any) {
+
     this.router.navigate(['address-register']);
   }
 

@@ -11,11 +11,11 @@ export class GenresService {
   constructor(private http: HttpClient ) { }
 
   findById(id:string):Observable<any>{
-    const url = this.API + `genre/${id}` ;
+    const url = this.API + `api/genre/${id}` ;
     return this.http.get(url);
   }
   findAll(): Observable<any>{
-    const url = this.API + "genre";
+    const url = this.API + "api/genre";
     return this.http.get(url);
   }
 }
