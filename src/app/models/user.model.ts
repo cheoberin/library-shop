@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
   _id: string | any;
   name: string;
   birthDate: Date;
@@ -7,3 +7,10 @@ export interface User {
   email: string;
   password: string;
 }
+
+export interface ISingInRequest{
+  email: string;
+  password: string;
+
+}
+

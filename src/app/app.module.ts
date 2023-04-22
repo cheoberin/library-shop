@@ -1,5 +1,5 @@
 import {registerLocaleData} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import {LOCALE_ID, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -29,6 +29,12 @@ import {HomeComponent} from './pages/home/home.component';
 import {UserRegisterComponent} from './pages/user-register/user-register.component';
 import {CartService} from './services/cart.service';
 import {UserService} from './services/user.service';
+import { LoginComponent } from './pages/login/login.component';
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {InputTextModule} from "primeng/inputtext";
+import {RippleModule} from "primeng/ripple";
+import { AuthInterceptor } from './services/auth-inteceptor.service';
+import {JwtService} from "./services/jwt.service";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -43,30 +49,36 @@ registerLocaleData(localePt);
     CartItemComponent,
     FooterComponent,
     UserRegisterComponent,
+    LoginComponent,
 
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ToolbarModule,
-    BadgeModule,
-    ButtonModule,
-    SidebarModule,
-    MenuModule,
-    OverlayPanelModule,
-    CheckboxModule,
-    FormsModule,
-    ToastModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    PaginatorModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ToolbarModule,
+        BadgeModule,
+        ButtonModule,
+        SidebarModule,
+        MenuModule,
+        OverlayPanelModule,
+        CheckboxModule,
+        FormsModule,
+        ToastModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        PaginatorModule,
+        ProgressSpinnerModule,
+        InputTextModule,
+        RippleModule
+    ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
+    {provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true},
     CartService,
     MessageService,
     UserService,
+    JwtService
   ],
   bootstrap: [AppComponent],
 })

@@ -4,7 +4,8 @@ import {UserService} from 'app/services/user.service';
 import {DatePipe, Location} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {cpf} from 'cpf-cnpj-validator';
-import {User} from 'app/models/user.model';
+import {IUser} from 'app/models/user.model';
+import {Token} from "../../models/jwt";
 
 @Component({
   selector: 'app-user-register',
@@ -41,7 +42,7 @@ export class UserRegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const user: User | null = this.route.snapshot?.data?.['user'] ?? null;
+    const user: IUser | null = this.route.snapshot?.data?.['user'] ?? null;
 
     if (user) {
       this.form.setValue({
@@ -60,13 +61,13 @@ export class UserRegisterComponent implements OnInit {
 
   onSubmit() {
     this.service.save(this.form.value).subscribe(
-      (result) => this.onSuccess(),
+      (result) => this.onSuccess(result),
       (error) => this.onError()
     );
   }
 
-  private onSuccess() {
-    console.log('cadastrado');
+  private onSuccess(result:Token) {
+    localStorage.setItem('access_token', result.token);
   }
 
   private onError() {
