@@ -75,7 +75,7 @@ export class UserRegisterComponent implements OnInit {
   }
 
   private onSuccess(result: any) {
-
+    localStorage.setItem('access_token', result.token);
     this.router.navigate(['address-register']);
   }
 

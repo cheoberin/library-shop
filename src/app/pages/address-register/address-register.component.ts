@@ -6,8 +6,9 @@ import { Address } from 'app/models/address.model';
 import { AddressService } from 'app/services/address.service';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from 'app/services/user.service';
+
 import localePt from '@angular/common/locales/pt';
+import { CurrentUserService } from 'app/services/current-user.service';
 
 @Component({
   selector: 'app-address-register',
@@ -17,11 +18,12 @@ import localePt from '@angular/common/locales/pt';
 })
 export class AddressRegisterComponent implements OnInit {
   cep: string = '';
+  userId: string = '';
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private service: AddressService,
-    private userService: UserService,
+    private userService: CurrentUserService,
     private location: Location,
     private activeRoute: ActivatedRoute,
     private router: Router,
@@ -29,7 +31,8 @@ export class AddressRegisterComponent implements OnInit {
   ) {}
 
   form = this.formBuilder.group({
-    _id: [this.userService.getCurrentUser],
+    _id: [''],
+    userId: [this.userService.getUserId()],
     addressName: ['', [Validators.required]],
     cep: ['', [Validators.required]],
     street: ['', [Validators.required]],
@@ -52,6 +55,7 @@ export class AddressRegisterComponent implements OnInit {
     if (address) {
       this.form.setValue({
         _id: address._id,
+        userId: this.userService.getUserId(),
         addressName: address.addressName,
         cep: address.cep,
         street: address.street,
