@@ -2,9 +2,9 @@
 
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <div class="mb-10 md:mb-16">
-      <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Address Register</h2>
+      <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Registrar Endereço</h2>
 
-      <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">Set up an address for delivery.
+      <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">Cadastre um endereço para entrega.
       </p>
 
       <form [formGroup]="form" method="post" (ngSubmit)="onSubmit()"
@@ -12,8 +12,8 @@
 
 
         <div>
-          <label for="addressName" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Address name*</label>
-          <input type="text" name="addressName" id="addressName" formControlName="addressName"
+          <label for="addressName" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Nome do Endereço*</label>
+          <input type="text"  name="addressName" id="addressName" formControlName="addressName"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
           <div *ngIf="form.get('addressName')?.invalid && form.get('addressName')?.touched" class="alert alert-danger">
             <div *ngIf="form.get('addressName')?.errors?.['required']">Address Name is required.</div>
@@ -25,42 +25,42 @@
           <input type="text" name="cep" id="cep" formControlName="cep" [(ngModel)]="cep" (blur)="lookAddress()"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
           <div *ngIf="form.get('cep')?.invalid && form.get('cep')?.touched" class="alert alert-danger">
-            <div *ngIf="form.get('cep')?.errors?.['required']">CEP is required.</div>
+            <div *ngIf="form.get('cep')?.errors?.['required']">CEP é obrigatorio.</div>
           </div>
         </div>
 
         <div class="sm:col-span-2">
-          <label for="street" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Street*</label>
-          <input type="text" name="street" id="street" formControlName="street"
+          <label for="street"  class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Rua*</label>
+          <input type="text" readonly name="street" id="street" formControlName="street"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
         </div>
 
         <div>
-          <label for="district" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">District*</label>
-          <input type="text" name="district" id="district" formControlName="district"
+          <label for="district" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Bairro*</label>
+          <input type="text" readonly  name="district" id="district" formControlName="district"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
         </div>
 
         <div>
-          <label for="city" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">City*</label>
-          <input type="text" name="city" id="city" formControlName="city"
+          <label for="city" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Cidade*</label>
+          <input type="text" readonly  name="city" id="city" formControlName="city"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
         </div>
 
         <div>
           <label for="uf" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">UF*</label>
-          <input type="text" name="uf" id="uf" formControlName="uf"
+          <input type="text" readonly  name="uf" id="uf" formControlName="uf"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
         </div>
 
         <div>
-          <label for="number" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Number*</label>
+          <label for="number" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Numero*</label>
           <input type="text" name="number" id="number" formControlName="number" inputmode="numeric" pattern="[0-9]*"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
         </div>
 
         <div>
-          <label for="adjunct" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Adjunct</label>
+          <label for="adjunct" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Complemento</label>
           <input type="text" name="adjunct" id="adjunct" formControlName="adjunct"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" />
         </div>
@@ -70,7 +70,7 @@
           <button
             type="submit"
             [disabled]="form.invalid"
-            class="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">Register</button>
+            class="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">Cadastrar</button>
         </div>
 
       </form>

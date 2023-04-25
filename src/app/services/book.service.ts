@@ -33,5 +33,8 @@ export class BookService {
   getBooksList() {
     return this.books$;
   }
+   findById(id:string){
+     return this.http.get(this.API + `book/${id}`)
+   }
 
 }

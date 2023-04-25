@@ -49,12 +49,20 @@ export class HeaderComponent implements OnInit{
         }
       },
       {
+        label: 'Meus Pedidos',
+        icon: 'pi pi-check-square',
+        command: () => {
+          this.router.navigate(['/user-orders']);
+        }
+      },
+      {
         label: 'Logout',
         icon: 'pi pi-times',
         command: () => {
           this.userService.doLogout();
         }
       }
+
     ];
   }
 
@@ -69,6 +77,9 @@ export class HeaderComponent implements OnInit{
 
   onClearCart() {
     this.cartService.clearCart();
+    if(this.router.url === '/checkout'){
+      this.router.navigate(['cart'])
+    }
   }
 
   checkBadge():boolean{

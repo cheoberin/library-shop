@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ISingInRequest, IUser} from 'app/models/user.model';
 import {first, Observable, switchMap} from 'rxjs';
-import { environment } from 'enviroment/enviroment';
-import { Router } from '@angular/router';
+import {environment} from 'enviroment/enviroment';
+import {Router} from '@angular/router';
 import {CurrentUserService} from "./current-user.service";
 import {JwtService} from "./jwt.service";
+
 @Injectable({
   providedIn: 'root',
 })
@@ -45,12 +46,15 @@ export class UserService {
         )
         .subscribe((userRes) => {
           this.currentUserService.setCurrentUser(userRes);
-          this.router.navigate(['']);
         });
   }
 
-  getCurrentUser(){
-    return localStorage.getItem('current_user');
+
+
+  getCurrentUser(email:string){
+    return this.httpClient.get(`${this.API}user/getUser/${email}`).subscribe((userRes) => {
+      this.currentUserService.setCurrentUser(userRes);
+    });
   }
 
   getToken() {
@@ -62,11 +66,11 @@ export class UserService {
     return authToken !== null;
   }
 
-  get isCostumer():boolean{
+  get isCustomer():boolean{
     let rawToken = localStorage.getItem('access_token');
     if(rawToken) {
       let decodedToken = this.jwtService.DecodeToken(rawToken);
-      return decodedToken.roles.includes('ADMIN')
+      return decodedToken.roles.includes('CUSTOMER')
     }
     return false;
   }
@@ -80,8 +84,8 @@ export class UserService {
   }
   // User profile
   getUserProfile(id: string): Observable<any> {
-    let api = `${this.API}user/getUser/${id}`;
-    return this.httpClient.get(api);
+    let api = `${this.API}user/${id}`;
+    return this.httpClient.get<any>(api);
   }
 
 

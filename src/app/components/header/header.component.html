@@ -39,7 +39,7 @@
     <div class="p-3 divide-y divide-solid">
         <div class="pb-3 flex justify-between">
             <span class="mr-16">{{itemsQuantity}} items</span>
-            <a routerLink="cart">View Cart</a>
+            <a routerLink="cart">Ver Carrinho</a>
         </div>
         <div *ngIf="cart.items.length" class="py-3">
             <div *ngFor="let item of cart.items" class="flex justify-between font-light mb-2">
@@ -56,7 +56,7 @@
                 <i class="pi pi-shopping-cart"></i>
             </button>
             <button class="bg-green-600 text-white rounded-full w-9 h-9"
-                routerLink="cart">
+                routerLink="checkout">
                 <i class="pi pi-shopping-cart"></i>
             </button>
         </div>
@@ -64,7 +64,7 @@
 </p-overlayPanel>
 
 <ng-template #logged>
-        <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+        <div class="relative cursor-pointer inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
             <span class="font-medium text-gray-600 dark:text-gray-300" (click)="menu.toggle($event)">{{initials}}</span>
         </div>
 </ng-template>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import {UserService} from "../../services/user.service";
 export class LoginComponent implements OnInit{
   signInForm!: FormGroup;
   spinner:boolean = false;
-  constructor(public fb:FormBuilder, private userService:UserService) {
+  constructor(public fb:FormBuilder, private userService:UserService,private location:Location) {
     this.signInForm = this.fb.group({
       email: ['',[Validators.required,Validators.email]],
       password:['',[Validators.required]],
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit{
 
     fakeAsyncOperation.then((userRes) => {
       this.spinner = false;
+      this.location.back();
     }).catch((error) => {
       this.spinner = false;
     });

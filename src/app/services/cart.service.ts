@@ -22,7 +22,7 @@ export class CartService {
 
      this.messageServ.add({
        severity:`info`,
-       summary:`1 item added to cart.`,
+       summary:`1 item foi adicionado ao carrinho`,
        life:1000
      })
    }
@@ -38,7 +38,7 @@ export class CartService {
       this.cart.next({items:[]});
          this.messageServ.add({
              severity:`warn`,
-             summary:`Cart is cleared.`,
+             summary:`O carrinho foi limpo.`,
              life:1000
          })
      }
@@ -52,7 +52,7 @@ export class CartService {
           this.cart.next({items:filteredItems});
           this.messageServ.add({
               severity: `warn`,
-              summary: `1 Item removed from cart.`,
+              summary: `1 item foi removido do carrinho.`,
               life: 1000
           })
       }
@@ -83,7 +83,7 @@ export class CartService {
        this.cart.next({items: filteredItem});
        this.messageServ.add({
              severity:`warn`,
-             summary:`1 Item removed from cart.`,
+             summary:`1 item foi removido do carrinho.`,
              life:1000
        })
      }

@@ -7,6 +7,9 @@ import { AddressService } from 'app/services/address.service';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
+import localePt from '@angular/common/locales/pt';
+import { CurrentUserService } from 'app/services/current-user.service';
+
 @Component({
   selector: 'app-address-register',
   templateUrl: './address-register.component.html',
@@ -15,22 +18,26 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AddressRegisterComponent implements OnInit {
   cep: string = '';
+  userId: string = '';
+  spinner!:boolean;
 
   constructor(
-    private formBuilder: NonNullableFormBuilder,
-    private service: AddressService,
-    private location: Location,
-    private activeRoute: ActivatedRoute,
-    private router: Router,
-    private httpClient: HttpClient
+      private formBuilder: NonNullableFormBuilder,
+      private service: AddressService,
+      private userService: CurrentUserService,
+      private location: Location,
+      private activeRoute: ActivatedRoute,
+      private router: Router,
+      private httpClient: HttpClient
   ) {}
 
   form = this.formBuilder.group({
     _id: [''],
+    userId: [this.userService.getUserId()],
     addressName: ['', [Validators.required]],
     cep: ['', [Validators.required]],
     street: ['', [Validators.required]],
-    adjunct: ['', [Validators.required]],
+    adjunct: [''],
     number: [0, [Validators.required]],
     district: ['', [Validators.required]],
     city: ['', [Validators.required]],
@@ -39,16 +46,12 @@ export class AddressRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     const address: Address | null =
-      this.activeRoute.snapshot?.data?.['address'] ?? null;
-
-    this.form.get('street')?.disable();
-    this.form.get('district')?.disable();
-    this.form.get('city')?.disable();
-    this.form.get('uf')?.disable();
+        this.activeRoute.snapshot?.data?.['address'] ?? null;
 
     if (address) {
       this.form.setValue({
         _id: address._id,
+        userId: this.userService.getUserId(),
         addressName: address.addressName,
         cep: address.cep,
         street: address.street,
@@ -63,17 +66,48 @@ export class AddressRegisterComponent implements OnInit {
     }
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.spinner = true;
+    this.service.save(this.form.value).subscribe(
+        (result) => this.onSucess(result),
+        (error) => this.onError(error)
+    );
+  }
+
+  private onSucess(result : any){
+
+    const fakeAsyncOperation = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("");
+      }, 3000);
+    });
+
+    fakeAsyncOperation.then((userRes) => {
+      this.spinner = false;
+      this.location.back()
+    }).catch((error) => {
+      this.spinner = false;
+    });
+
+  }
+
+  private onError(error : any){
+    console.log(error);
+  }
+
+  onCancel(){
+    this.location.back();
+  }
 
   public lookAddress() {
 
     return this.httpClient
-      .get(`https://viacep.com.br/ws/${this.cep}/json/`)
-      .subscribe((address: any) => {
-        this.form.controls['street'].setValue(address.logradouro);
-        this.form.controls['district'].setValue(address.bairro);
-        this.form.controls['city'].setValue(address.localidade);
-        this.form.controls['uf'].setValue(address.uf);
-      });
+        .get(`https://viacep.com.br/ws/${this.cep}/json/`)
+        .subscribe((address: any) => {
+          this.form.controls['street'].setValue(address.logradouro);
+          this.form.controls['district'].setValue(address.bairro);
+          this.form.controls['city'].setValue(address.localidade);
+          this.form.controls['uf'].setValue(address.uf);
+        });
   }
 }

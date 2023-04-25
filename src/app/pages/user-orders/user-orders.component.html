@@ -1,0 +1,28 @@
+<div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+    <tr>
+        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Nome do cliente</th>
+        <th scope="col" class="px-6 py-3">Número do pedido</th>
+        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Telefone</th>
+        <th scope="col" class="px-6 py-3">Endereço</th>
+        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800" >Itens do pedido</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  class="border-b border-gray-200 dark:border-gray-700" *ngFor="let order of orders">
+        <td class="px-6 py-4">{{ order.customerName }}</td>
+        <td class="px-6 py-4">{{ order.orderNumber }}</td>
+        <td class="px-6 py-4">{{ order.phone }}</td>
+        <td class="px-6 py-4">{{ order.address.street }}, {{ order.address.number }} - {{ order.address.district }}, {{ order.address.city }}, {{ order.address.uf }}</td>
+        <td class="px-6 py-4">
+            <ul>
+                <li *ngFor="let item of order.orderItemsList">{{ item.bookName }} ({{ item.quantity }} x {{ item.price.toFixed(2) }})</li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</div>

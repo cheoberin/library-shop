@@ -1,0 +1,11 @@
+<li class="flex justify-between py-3">
+    <div class="inline-flex">
+        <img src="{{item.bookCover}}"
+             alt="book Cover" class="max-h-16"/>
+        <div class="ml-3">
+            <p class="text-base font-semibold text-white">{{item.name}}</p>
+            <p class="text-sm font-medium text-white text-opacity-80">x{{item.quantity}}</p>
+        </div>
+    </div>
+    <p class="text-sm font-semibold text-white">{{item.price| currency:'BRL'}}</p>
+</li>

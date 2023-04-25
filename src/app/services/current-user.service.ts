@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, map, Observable} from "rxjs";
 
 @Injectable({
@@ -21,4 +21,13 @@ export class CurrentUserService {
         map((user) => user && user.name ? user.name.substring(0, 2).toUpperCase() : '')
     );
   }
+
+  getUserName(): string {
+    return this.currentUserSubject.value.name;
+  }
+
+  getUserId(): string {
+    return this.currentUserSubject.value._id;
+  }
+
 }

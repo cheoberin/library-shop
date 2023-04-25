@@ -1,16 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  NonNullableFormBuilder,
-  Validators,
-} from '@angular/forms';
-import { UserService } from 'app/services/user.service';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import validator, { cpf } from 'cpf-cnpj-validator';
-import { User } from 'app/models/user.model';
-import { DatePipe } from '@angular/common';
-import { AbstractControl } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, NonNullableFormBuilder, Validators,} from '@angular/forms';
+import {UserService} from 'app/services/user.service';
+import {DatePipe, Location} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {cpf} from 'cpf-cnpj-validator';
+import {IUser} from 'app/models/user.model';
 
 @Component({
   selector: 'app-user-register',
@@ -19,6 +13,7 @@ import { AbstractControl } from '@angular/forms';
   providers: [DatePipe],
 })
 export class UserRegisterComponent implements OnInit {
+  spinner?:boolean;
   form = this.formBuilder.group({
     _id: [''],
     name: ['', [Validators.required]],
@@ -48,7 +43,7 @@ export class UserRegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const user: User | null = this.activeRoute.snapshot?.data?.['user'] ?? null;
+    const user: IUser | null = this.activeRoute.snapshot?.data?.['user'] ?? null;
 
     if (user) {
       this.form.setValue({
@@ -66,14 +61,31 @@ export class UserRegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner = true;
     this.service.save(this.form.value).subscribe(
-      (result) => this.onSuccess(result),
+      (result) => this.onSuccess(result,this.form.value.email!),
       (error) => this.onError(error)
     );
+
   }
 
-  private onSuccess(result: any) {
-    this.router.navigate(['address-register']);
+  private onSuccess(result: any,email:string) {
+    localStorage.setItem('access_token', result.token);
+
+    this.service.getCurrentUser(email);
+    const fakeAsyncOperation = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("");
+      }, 3000);
+    });
+
+    fakeAsyncOperation.then((userRes) => {
+      this.spinner = false;
+      this.router.navigate([''])
+    }).catch((error) => {
+      this.spinner = false;
+    });
+
   }
 
   private onError(error: any) {

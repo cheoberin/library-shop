@@ -3,8 +3,8 @@
         <div class="mx-auto max-w-screen-lg px-4 md:px-8">
             <div class="grid gap-8 sm:grid-cols-2">
                 <div class="flex flex-col items-center justify-center sm:items-start md:py-24 lg:py-32">
-                    <h1 class="mb-2 text-center text-2xl font-bold text-gray-800 sm:text-left md:text-3xl">Ops... Your cart is empty! </h1>
-                    <a href="#" class="inline-block rounded-lg bg-indigo-600 px-8 pt-1.5 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base">Start Shopping</a>
+                    <h1 class="mb-2 text-center text-2xl font-bold text-gray-800 sm:text-left md:text-3xl">Ops... Seu carrinho esta vazio! </h1>
+                    <a href="#" class="inline-block rounded-lg bg-indigo-600 px-8 pt-1.5 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base">Comece a comprar</a>
                 </div>
                 <div class="relative h-80 overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-auto">
                     <img src="assets/animated.gif"  alt="se" class="absolute inset-0 h-full w-full object-cover object-center" />
@@ -18,7 +18,7 @@
 <div class="bg-white py-6 sm:py-8 lg:py-12">
     <div class="mx-auto max-w-screen-lg px-4 md:px-8">
         <div class="mb-6 sm:mb-10 lg:mb-16">
-            <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Your Cart</h2>
+            <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Seu Carrinho</h2>
         </div>
         <div *ngFor="let item of cart.items">
         <app-cart-item
@@ -32,14 +32,14 @@
                         <span class="text-lg font-bold">Total</span>
                         <span class="flex flex-col items-end">
               <span class="text-lg font-bold">{{getTotal(cart.items)| currency:'BRL' }}</span>
-              <span class="text-sm text-gray-500">including TAX</span>
+              <span class="text-sm text-gray-500">incluindo taxas</span>
             </span>
                     </div>
                 </div>
             </div>
             <div class="flex">
                 <button (click)="onClearCart()" class=" rounded-lg bg-rose-500 px-8 mr-12 py-3 text-center text-sm font-semibold text-white outline-none ring-rose-300 transition duration-100 hover:bg-rose-600 focus-visible:ring active:bg-rose-700 md:text-base">Clear All</button>
-                <button class=" rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">Check out</button>
+                <button routerLink="../checkout" class=" rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">Check out</button>
             </div>
         </div>
     </div>

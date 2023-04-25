@@ -1,0 +1,39 @@
+<div class="bg-white py-6 sm:py-8 lg:py-12">
+    <div class="mx-auto max-w-screen-lg px-4 md:px-8">
+        <div class="grid gap-8 md:grid-cols-2">
+            <div class="space-y-4">
+                <div class="relative overflow-hidden rounded-lg bg-gray-100">
+                    <img src="{{book.bookCover}}" loading="lazy" alt="Book Cover" class="h-full w-full object-cover object-center" />
+                </div>
+            </div>
+            <div class="md:py-8">
+                <div class="mb-2 md:mb-3">
+                    <span class="mb-0.5 inline-block text-gray-500">{{book.authors[0].name}}</span>
+                    <h2 class="text-2xl font-bold text-gray-800 lg:text-3xl">{{book.name}}</h2>
+                </div>
+
+                <div class="mb-4">
+                    <div class="flex items-end gap-2">
+                        <span class="text-xl font-bold text-gray-800 md:text-2xl">{{book.price | currency:'BRL' }}</span>
+                    </div>
+                </div>
+
+                <div class="flex gap-2.5">
+                    <a (click)="onAddToCart(book)" class="inline-block flex-1 rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 sm:flex-none md:text-base">Adicionar ao carrinho</a>
+                </div>
+                <!-- buttons - end -->
+
+                <!-- description - start -->
+                <div class="mt-10 md:mt-16 lg:mt-20">
+                    <div class="mb-3 text-lg font-semibold text-gray-800">Summario</div>
+
+                    <p class="text-gray-500">
+                        {{book.summary}}
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

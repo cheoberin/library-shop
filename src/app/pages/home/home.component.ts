@@ -63,7 +63,6 @@ export class HomeComponent implements OnInit, OnDestroy{
     this.getBooks();
   }
 
-
   rows!: number;
   totalRecords!:number;
 
